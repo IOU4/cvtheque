@@ -1,0 +1,69 @@
+package ma.cvtheque.hard_skills;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import ma.cvtheque.student.Student;
+import ma.cvtheque.student.StudentRepository;
+import ma.cvtheque.util.NotFoundException;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+
+@Service
+public class HardSkillsService {
+
+    private final HardSkillsRepository hardSkillsRepository;
+    private final StudentRepository studentRepository;
+
+    public HardSkillsService(final HardSkillsRepository hardSkillsRepository,
+            final StudentRepository studentRepository) {
+        this.hardSkillsRepository = hardSkillsRepository;
+        this.studentRepository = studentRepository;
+    }
+
+    public List<HardSkillsDTO> findAll() {
+        final List<HardSkills> hardSkillss = hardSkillsRepository.findAll(Sort.by("id"));
+        return hardSkillss.stream()
+                .map((hardSkills) -> mapToDTO(hardSkills, new HardSkillsDTO()))
+                .collect(Collectors.toList());
+    }
+
+    public HardSkillsDTO get(final Long id) {
+        return hardSkillsRepository.findById(id)
+                .map(hardSkills -> mapToDTO(hardSkills, new HardSkillsDTO()))
+                .orElseThrow(NotFoundException::new);
+    }
+
+    public Long create(final HardSkillsDTO hardSkillsDTO) {
+        final HardSkills hardSkills = new HardSkills();
+        mapToEntity(hardSkillsDTO, hardSkills);
+        return hardSkillsRepository.save(hardSkills).getId();
+    }
+
+    public void update(final Long id, final HardSkillsDTO hardSkillsDTO) {
+        final HardSkills hardSkills = hardSkillsRepository.findById(id)
+                .orElseThrow(NotFoundException::new);
+        mapToEntity(hardSkillsDTO, hardSkills);
+        hardSkillsRepository.save(hardSkills);
+    }
+
+    public void delete(final Long id) {
+        hardSkillsRepository.deleteById(id);
+    }
+
+    private HardSkillsDTO mapToDTO(final HardSkills hardSkills, final HardSkillsDTO hardSkillsDTO) {
+        hardSkillsDTO.setId(hardSkills.getId());
+        hardSkillsDTO.setName(hardSkills.getName());
+        hardSkillsDTO.setStudent(hardSkills.getStudent() == null ? null : hardSkills.getStudent().getId());
+        return hardSkillsDTO;
+    }
+
+    private HardSkills mapToEntity(final HardSkillsDTO hardSkillsDTO, final HardSkills hardSkills) {
+        hardSkills.setName(hardSkillsDTO.getName());
+        final Student student = hardSkillsDTO.getStudent() == null ? null : studentRepository.findById(hardSkillsDTO.getStudent())
+                .orElseThrow(() -> new NotFoundException("student not found"));
+        hardSkills.setStudent(student);
+        return hardSkills;
+    }
+
+}
