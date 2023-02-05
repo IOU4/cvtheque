@@ -14,9 +14,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 import ma.cvtheque.document.Document;
@@ -44,15 +42,14 @@ public class Student {
   @Enumerated(EnumType.STRING)
   private StudentStatus status;
 
-  @OneToOne
-  @JoinColumn(name = "document_id")
-  private Document document;
+  @OneToMany(mappedBy = "student")
+  private Set<Document> documents;
 
   @OneToMany(mappedBy = "student")
-  private Set<HardSkills> studentHardSkillss;
+  private Set<HardSkills> hardSkills;
 
   @OneToMany(mappedBy = "student")
-  private Set<SoftSkills> studentSoftSkillss;
+  private Set<SoftSkills> softSkills;
 
   @CreatedDate
   @Column(nullable = false, updatable = false)
