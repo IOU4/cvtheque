@@ -16,6 +16,7 @@ node_modules/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+bin
 
 ## VS Code
 .vscode/
