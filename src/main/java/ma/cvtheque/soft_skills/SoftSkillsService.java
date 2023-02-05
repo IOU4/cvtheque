@@ -6,16 +6,14 @@ import java.util.stream.Collectors;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
 import ma.cvtheque.util.NotFoundException;
 
 @Service
+@RequiredArgsConstructor
 public class SoftSkillsService {
 
   private final SoftSkillsRepository softSkillsRepository;
-
-  public SoftSkillsService(final SoftSkillsRepository softSkillsRepository) {
-    this.softSkillsRepository = softSkillsRepository;
-  }
 
   public List<SoftSkillsDTO> findAll() {
     final List<SoftSkills> softSkillss = softSkillsRepository.findAll(Sort.by("id"));

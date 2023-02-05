@@ -6,16 +6,14 @@ import java.util.stream.Collectors;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import lombok.RequiredArgsConstructor;
 import ma.cvtheque.util.NotFoundException;
 
 @Service
+@RequiredArgsConstructor
 public class DocumentService {
 
   private final DocumentRepository documentRepository;
-
-  public DocumentService(final DocumentRepository documentRepository) {
-    this.documentRepository = documentRepository;
-  }
 
   public List<DocumentDTO> findAll() {
     final List<Document> documents = documentRepository.findAll(Sort.by("id"));
