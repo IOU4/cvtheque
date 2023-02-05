@@ -14,44 +14,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 @RequestMapping(value = "/api/hardSkillss", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HardSkillsResource {
 
-    private final HardSkillsService hardSkillsService;
+  private final HardSkillsService hardSkillsService;
 
-    public HardSkillsResource(final HardSkillsService hardSkillsService) {
-        this.hardSkillsService = hardSkillsService;
-    }
+  public HardSkillsResource(final HardSkillsService hardSkillsService) {
+    this.hardSkillsService = hardSkillsService;
+  }
 
-    @GetMapping
-    public ResponseEntity<List<HardSkillsDTO>> getAllHardSkillss() {
-        return ResponseEntity.ok(hardSkillsService.findAll());
-    }
+  @GetMapping
+  public ResponseEntity<List<HardSkillsDTO>> getAllHardSkillss() {
+    return ResponseEntity.ok(hardSkillsService.findAll());
+  }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<HardSkillsDTO> getHardSkills(@PathVariable final Long id) {
-        return ResponseEntity.ok(hardSkillsService.get(id));
-    }
+  @GetMapping("/{id}")
+  public ResponseEntity<HardSkillsDTO> getHardSkills(@PathVariable final Long id) {
+    return ResponseEntity.ok(hardSkillsService.get(id));
+  }
 
-    @PostMapping
-    public ResponseEntity<Long> createHardSkills(
-            @RequestBody @Valid final HardSkillsDTO hardSkillsDTO) {
-        return new ResponseEntity<>(hardSkillsService.create(hardSkillsDTO), HttpStatus.CREATED);
-    }
+  @PostMapping
+  public ResponseEntity<Long> createHardSkills(
+      @RequestBody @Valid final HardSkillsDTO hardSkillsDTO) {
+    return new ResponseEntity<>(hardSkillsService.create(hardSkillsDTO), HttpStatus.CREATED);
+  }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> updateHardSkills(@PathVariable final Long id,
-            @RequestBody @Valid final HardSkillsDTO hardSkillsDTO) {
-        hardSkillsService.update(id, hardSkillsDTO);
-        return ResponseEntity.ok().build();
-    }
+  @PutMapping("/{id}")
+  public ResponseEntity<Void> updateHardSkills(@PathVariable final Long id,
+      @RequestBody @Valid final HardSkillsDTO hardSkillsDTO) {
+    hardSkillsService.update(id, hardSkillsDTO);
+    return ResponseEntity.ok().build();
+  }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteHardSkills(@PathVariable final Long id) {
-        hardSkillsService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteHardSkills(@PathVariable final Long id) {
+    hardSkillsService.delete(id);
+    return ResponseEntity.noContent().build();
+  }
 
 }

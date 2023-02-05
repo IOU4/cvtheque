@@ -9,7 +9,7 @@ spring:
       validation-query-timeout: 30
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     open-in-view: false
     properties:
       hibernate:
@@ -19,6 +19,3 @@ spring:
         id:
           new_generator_mappings: true
         enable_lazy_load_no_trans: true
-
-  cors:
-    allowed-origin: "*"
