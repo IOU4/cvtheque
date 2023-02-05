@@ -19,7 +19,5 @@ public class StudentDTO {
   @Size(max = 255)
   private String email;
 
-  @Size(max = 255)
-  private String status;
-
+  private StudentStatus status;
 }
