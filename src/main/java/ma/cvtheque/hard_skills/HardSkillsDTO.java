@@ -3,7 +3,6 @@ package ma.cvtheque.hard_skills;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import ma.cvtheque.student.StudentDTO;
 
 @Getter
 @Setter
@@ -14,6 +13,6 @@ public class HardSkillsDTO {
   @Size(max = 255)
   private String name;
 
-  private StudentDTO student;
+  private Long studentId;
 
 }
