@@ -17,7 +17,7 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtService {
 
-  @Value("${spring.securty.singInKey}")
+  @Value("${spring.security.singInKey}")
   private String singInKey;
 
   public String extractUsername(String token) {

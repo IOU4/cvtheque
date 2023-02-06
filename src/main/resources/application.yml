@@ -7,7 +7,7 @@ spring:
       max-wait-millis: 30000
       validation-query: SELECT 1
       validation-query-timeout: 30
-  jwt:
+  security:
     singInKey: 4E645267556B58703273357638792F423F4528472B4B6250655368566D597133
   jpa:
     hibernate:
