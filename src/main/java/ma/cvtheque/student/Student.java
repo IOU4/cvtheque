@@ -43,7 +43,7 @@ public class Student implements UserDetails {
   @Column(nullable = false, unique = true)
   private String email;
 
-  @Column(nullable = false)
+  @Column(nullable = false, columnDefinition = "text")
   private String password;
 
   @Column

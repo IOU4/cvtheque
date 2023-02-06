@@ -16,6 +16,7 @@ public class StudentService {
 
   private final StudentRepository studentRepository;
   private final PasswordEncoder passwordEncoder;
+  private final CreationMapper creationMapper;
 
   public List<StudentDTO> findAll() {
     final List<Student> students = studentRepository.findAll(Sort.by("id"));
@@ -30,9 +31,8 @@ public class StudentService {
         .orElseThrow(NotFoundException::new);
   }
 
-  public Long create(final StudentDTO studentDTO) {
-    final Student student = new Student();
-    mapToEntity(studentDTO, student);
+  public Long create(final StudentCreationDTO studentCreationDTO) {
+    final Student student = creationMapper.apply(studentCreationDTO);
     student.setPassword(passwordEncoder.encode(student.getPassword()));
     return studentRepository.save(student).getId();
   }

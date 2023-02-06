@@ -37,8 +37,8 @@ public class StudentResource {
   }
 
   @PostMapping
-  public ResponseEntity<Long> createStudent(@RequestBody @Valid final StudentDTO studentDTO) {
-    return new ResponseEntity<>(studentService.create(studentDTO), HttpStatus.CREATED);
+  public ResponseEntity<Long> createStudent(@RequestBody @Valid final StudentCreationDTO studentCreationDTO) {
+    return new ResponseEntity<>(studentService.create(studentCreationDTO), HttpStatus.CREATED);
   }
 
   @PutMapping("/{id}")

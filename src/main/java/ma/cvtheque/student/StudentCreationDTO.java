@@ -7,9 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class StudentDTO {
-
-  private Long id;
+public class StudentCreationDTO {
 
   @NotNull
   @Size(max = 255)
@@ -19,6 +17,7 @@ public class StudentDTO {
   @Size(max = 255)
   private String email;
 
-  private StudentStatus status;
+  @NotNull
+  private String password;
 
 }
