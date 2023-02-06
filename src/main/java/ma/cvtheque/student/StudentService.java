@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import ma.cvtheque.util.NotFoundException;
 public class StudentService {
 
   private final StudentRepository studentRepository;
+  private final PasswordEncoder passwordEncoder;
 
   public List<StudentDTO> findAll() {
     final List<Student> students = studentRepository.findAll(Sort.by("id"));
@@ -31,6 +33,7 @@ public class StudentService {
   public Long create(final StudentDTO studentDTO) {
     final Student student = new Student();
     mapToEntity(studentDTO, student);
+    student.setPassword(passwordEncoder.encode(student.getPassword()));
     return studentRepository.save(student).getId();
   }
 
