@@ -42,7 +42,7 @@ public class JwtService {
   }
 
   private boolean isTokenExpaired(String token) {
-    return Date.from(Instant.now()).compareTo(extractClaim(token, Claims::getExpiration)) > 0;
+    return Instant.now().compareTo(extractClaim(token, Claims::getExpiration).toInstant()) > 0;
   }
 
   public String generateToken(UserDetails userDetails) {
